@@ -10,7 +10,7 @@ const addItem = async (req , res ) => {
     }
     };
 
-    const getItem = async (req , res ) => {
+    const getItems = async (req , res ) => {
         try {
             const tasks = await Task.find({ userId: req.user.id });
             res.json(tasks);
@@ -22,16 +22,29 @@ const addItem = async (req , res ) => {
     const updateItem = async (req , res ) => {
         const { title, description, completed, deadline } = req.body;
         try {
-        const task = await Task.findById(req.params.id);
-        if (!task) return res.status(404).json({ message: 'Item not found' });
-        task.title = title || task.title;
-        task.description = description || task.description;
-        task.completed = completed ?? task.completed;
-        task.deadline = deadline || task.deadline;
-        const updatedTask = await task.save();
-        res.json(updatedTask);
+            const task = await Task.findById(req.params.id);
+            if (!task) return res.status(404).json({ message: 'Item not found' });
+            task.title = title || task.title;
+            task.description = description || task.description;
+            task.completed = completed ?? task.completed;
+            task.deadline = deadline || task.deadline;
+            const updatedTask = await task.save();
+            res.json(updatedTask);
         } catch (error) {
-        res.status(500).json({ message: error.message });
+            res.status(500).json({ message: error.message });
         }
         };
-    
+
+        const deleteItem = async (req , res ) => {
+            try {
+                const task = await Task.findById(req.params.id);
+                if (!task) return res.status(404).json({ message: 'Task not found' });
+                await task.remove();
+                res.json({ message: 'Task deleted' });
+            } catch (error) {
+                res.status(500).json({ message: error.message });
+            }
+            };
+            
+
+module.exports = { getItems, addItem, updateItem, deleteItem };    
