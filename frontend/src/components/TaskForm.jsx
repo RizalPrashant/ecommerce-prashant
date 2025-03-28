@@ -40,29 +40,29 @@ const TaskForm = ({ tasks, setTasks, editingTask, setEditingTask }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded mb-6">
-      <h1 className="text-2xl font-bold mb-4">{editingTask ? 'Your Form Name: Edit Operation' : 'Your Form Name: Create Operation'}</h1>
+    <form onSubmit={handleSubmit} className="bg-white p-6 shadow-lg rounded-lg mb-6 border border-gray-200">
+      <h1 className="text-2xl font-bold mb-4 text-gray-800">{editingTask ? 'Update a Product' : 'Add a Product'}</h1>
       <input
         type="text"
         placeholder="Title"
         value={formData.title}
         onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-        className="w-full mb-4 p-2 border rounded"
+        className="w-full mb-4 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 transition-shadow"
       />
       <input
         type="text"
         placeholder="Description"
         value={formData.description}
         onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-        className="w-full mb-4 p-2 border rounded"
+        className="w-full mb-4 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 transition-shadow"
       />
       <input
         type="date"
         value={formData.deadline}
         onChange={(e) => setFormData({ ...formData, deadline: e.target.value })}
-        className="w-full mb-4 p-2 border rounded"
+        className="w-full mb-4 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 transition-shadow"
       />
-      <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded">
+      <button type="submit" className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
         {editingTask ? 'Update Button' : 'Create Button'}
       </button>
     </form>

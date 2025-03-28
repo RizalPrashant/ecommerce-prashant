@@ -1,5 +1,6 @@
 const Item = require('../models/Item');
 
+// Add Item Method for the ecommerce application.
 const addItem = async (req , res ) => {
     const { title, description, listeddate } = req.body;
     try {
@@ -10,6 +11,7 @@ const addItem = async (req , res ) => {
     }
     };
 
+    // Get Items method for the ecommerce application.
     const getItems = async (req , res ) => {
         try {
             const items = await Item.find({ userId: req.user.id });
@@ -19,6 +21,7 @@ const addItem = async (req , res ) => {
         }
     };
 
+    //Update Item method for the ecommerce application.
     const updateItem = async (req , res ) => {
         const { title, description, instock, listeddate } = req.body;
         try {
@@ -35,6 +38,7 @@ const addItem = async (req , res ) => {
         }
         };
 
+        //Delete Item method for the ecommerce application.
         const deleteItem = async (req , res ) => {
             try {
                 const item = await Item.findById(req.params.id);
