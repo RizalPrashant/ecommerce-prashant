@@ -24,11 +24,11 @@ const addItem = async (req , res ) => {
         try {
             const item = await Item.findById(req.params.id);
             if (!item) return res.status(404).json({ message: 'Item not found' });
-            item.title = title || Item.title;
-            item.description = description || Item.description;
-            item.instock = instock ?? Item.instock;
-            item.listeddate = listeddate || Item.listeddate;
-            const updatedItem = await Item.save();
+            item.title = title || item.title;
+            item.description = description || item.description;
+            item.instock = instock ?? item.instock;
+            item.listeddate = listeddate || item.listeddate;
+            const updatedItem = await item.save();
             res.json(updatedItem);
         } catch (error) {
             res.status(500).json({ message: error.message });
