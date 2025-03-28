@@ -4,17 +4,17 @@ import axiosInstance from '../axiosConfig';
 
 const TaskForm = ({ tasks, setTasks, editingTask, setEditingTask }) => {
   const { user } = useAuth();
-  const [formData, setFormData] = useState({ title: '', description: '', deadline: '' });
+  const [formData, setFormData] = useState({ title: '', description: '', listeddate: '' });
 
   useEffect(() => {
     if (editingTask) {
       setFormData({
         title: editingTask.title,
         description: editingTask.description,
-        deadline: editingTask.deadline,
+        listeddate: editingTask.listeddate,
       });
     } else {
-      setFormData({ title: '', description: '', deadline: '' });
+      setFormData({ title: '', description: '', listeddate: '' });
     }
   }, [editingTask]);
 
@@ -33,36 +33,36 @@ const TaskForm = ({ tasks, setTasks, editingTask, setEditingTask }) => {
         setTasks([...tasks, response.data]);
       }
       setEditingTask(null);
-      setFormData({ title: '', description: '', deadline: '' });
+      setFormData({ title: '', description: '', listeddate: '' });
     } catch (error) {
       alert('Failed to save task.');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-6 shadow-md rounded mb-6">
-      <h1 className="text-2xl font-bold mb-4">{editingTask ? 'Your Form Name: Edit Operation' : 'Your Form Name: Create Operation'}</h1>
+    <form onSubmit={handleSubmit} className="bg-white p-6 shadow-lg rounded-lg mb-6 border border-gray-200">
+      <h1 className="text-2xl font-bold mb-4 text-gray-800">{editingTask ? 'Update a Product' : 'Add a Product'}</h1>
       <input
         type="text"
         placeholder="Title"
         value={formData.title}
         onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-        className="w-full mb-4 p-2 border rounded"
+        className="w-full mb-4 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 transition-shadow"
       />
       <input
         type="text"
         placeholder="Description"
         value={formData.description}
         onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-        className="w-full mb-4 p-2 border rounded"
+        className="w-full mb-4 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 transition-shadow"
       />
       <input
         type="date"
-        value={formData.deadline}
-        onChange={(e) => setFormData({ ...formData, deadline: e.target.value })}
-        className="w-full mb-4 p-2 border rounded"
+        value={formData.listeddate}
+        onChange={(e) => setFormData({ ...formData, listeddate: e.target.value })}
+        className="w-full mb-4 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 transition-shadow"
       />
-      <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded">
+      <button type="submit" className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
         {editingTask ? 'Update Button' : 'Create Button'}
       </button>
     </form>
