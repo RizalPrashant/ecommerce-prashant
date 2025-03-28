@@ -1,6 +1,6 @@
-const Task = require('../models/Items');
+const Task = require('../models/Item');
 
-const addItems = async (req , res ) => {
+const addItem = async (req , res ) => {
     const { title, description, deadline } = req.body;
     try {
         const task = await Task.create({ userId: req.user.id, title, description, deadline });
@@ -10,7 +10,7 @@ const addItems = async (req , res ) => {
     }
     };
 
-    const getItems = async (req , res ) => {
+    const getItem = async (req , res ) => {
         try {
             const tasks = await Task.find({ userId: req.user.id });
             res.json(tasks);
@@ -19,4 +19,19 @@ const addItems = async (req , res ) => {
         }
     };
 
+    const updateItem = async (req , res ) => {
+        const { title, description, completed, deadline } = req.body;
+        try {
+        const task = await Task.findById(req.params.id);
+        if (!task) return res.status(404).json({ message: 'Item not found' });
+        task.title = title || task.title;
+        task.description = description || task.description;
+        task.completed = completed ?? task.completed;
+        task.deadline = deadline || task.deadline;
+        const updatedTask = await task.save();
+        res.json(updatedTask);
+        } catch (error) {
+        res.status(500).json({ message: error.message });
+        }
+        };
     
