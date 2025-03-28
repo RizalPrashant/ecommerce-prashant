@@ -21,7 +21,7 @@ const TaskList = ({ tasks, setTasks, setEditingTask }) => {
         <div key={task._id} className="bg-blue-50 p-4 rounded-xl shadow-md border border-gray-300 hover:shadow-lg transition">
           <h2 className="text-lg font-semibold text-gray-800">{task.title}</h2>
           <p className="text-gray-600">{task.description}</p>
-          <p className="text-sm text-gray-500">Deadline: {new Date(task.deadline).toLocaleDateString()}</p>
+          <p className="text-sm text-gray-500">Listed Date : {new Date(task.listeddate).toLocaleDateString()}</p>
           <div className="mt-3 flex gap-3">
             <button
               onClick={() => setEditingTask(task)}
