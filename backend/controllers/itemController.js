@@ -1,10 +1,10 @@
-const Task = require('../models/Item');
+const Item = require('../models/Item');
 
 const addItem = async (req , res ) => {
-    const { title, description, deadline } = req.body;
+    const { title, description, listeddate } = req.body;
     try {
-        const task = await Task.create({ userId: req.user.id, title, description, deadline });
-        res.status(201).json(task);
+        const Item = await Item.create({ userId: req.user.id, title, description, listeddate });
+        res.status(201).json(Item);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -12,24 +12,24 @@ const addItem = async (req , res ) => {
 
     const getItems = async (req , res ) => {
         try {
-            const tasks = await Task.find({ userId: req.user.id });
-            res.json(tasks);
+            const Items = await Item.find({ userId: req.user.id });
+            res.json(Items);
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
     };
 
     const updateItem = async (req , res ) => {
-        const { title, description, completed, deadline } = req.body;
+        const { title, description, instock, listeddate } = req.body;
         try {
-            const task = await Task.findById(req.params.id);
-            if (!task) return res.status(404).json({ message: 'Item not found' });
-            task.title = title || task.title;
-            task.description = description || task.description;
-            task.completed = completed ?? task.completed;
-            task.deadline = deadline || task.deadline;
-            const updatedTask = await task.save();
-            res.json(updatedTask);
+            const Item = await Item.findById(req.params.id);
+            if (!Item) return res.status(404).json({ message: 'Item not found' });
+            Item.title = title || Item.title;
+            Item.description = description || Item.description;
+            Item.instock = instock ?? Item.instock;
+            Item.listeddate = listeddate || Item.listeddate;
+            const updatedItem = await Item.save();
+            res.json(updatedItem);
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
@@ -37,10 +37,10 @@ const addItem = async (req , res ) => {
 
         const deleteItem = async (req , res ) => {
             try {
-                const task = await Task.findById(req.params.id);
-                if (!task) return res.status(404).json({ message: 'Task not found' });
-                await task.remove();
-                res.json({ message: 'Task deleted' });
+                const Item = await Item.findById(req.params.id);
+                if (!Item) return res.status(404).json({ message: 'Item not found' });
+                await Item.remove();
+                res.json({ message: 'Item deleted' });
             } catch (error) {
                 res.status(500).json({ message: error.message });
             }
